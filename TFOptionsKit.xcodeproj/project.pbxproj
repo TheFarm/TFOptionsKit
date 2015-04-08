@@ -1,0 +1,417 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5B5492231AD5203A004AE3E9 /* TFOptionsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5492171AD5203A004AE3E9 /* TFOptionsKit.framework */; };
+		5B54922A1AD5203A004AE3E9 /* TFOptionsKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5492291AD5203A004AE3E9 /* TFOptionsKitTests.m */; };
+		5B5492351AD520D0004AE3E9 /* TFOptionsKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B5492331AD520D0004AE3E9 /* TFOptionsKit.h */; };
+		5B5492361AD520D0004AE3E9 /* TFOptionsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5492341AD520D0004AE3E9 /* TFOptionsKit.m */; };
+		5B5492381AD521DC004AE3E9 /* testValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B5492371AD521DC004AE3E9 /* testValues.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5B5492241AD5203A004AE3E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B54920E1AD5203A004AE3E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B5492161AD5203A004AE3E9;
+			remoteInfo = TFOptionsKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5B5492171AD5203A004AE3E9 /* TFOptionsKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TFOptionsKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B54921B1AD5203A004AE3E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B5492221AD5203A004AE3E9 /* TFOptionsKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TFOptionsKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B5492281AD5203A004AE3E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B5492291AD5203A004AE3E9 /* TFOptionsKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TFOptionsKitTests.m; sourceTree = "<group>"; };
+		5B5492331AD520D0004AE3E9 /* TFOptionsKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFOptionsKit.h; sourceTree = "<group>"; };
+		5B5492341AD520D0004AE3E9 /* TFOptionsKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFOptionsKit.m; sourceTree = "<group>"; };
+		5B5492371AD521DC004AE3E9 /* testValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = testValues.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5B5492131AD5203A004AE3E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B54921F1AD5203A004AE3E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B5492231AD5203A004AE3E9 /* TFOptionsKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5B54920D1AD5203A004AE3E9 = {
+			isa = PBXGroup;
+			children = (
+				5B5492191AD5203A004AE3E9 /* TFOptionsKit */,
+				5B5492261AD5203A004AE3E9 /* TFOptionsKitTests */,
+				5B5492181AD5203A004AE3E9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5B5492181AD5203A004AE3E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5B5492171AD5203A004AE3E9 /* TFOptionsKit.framework */,
+				5B5492221AD5203A004AE3E9 /* TFOptionsKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5B5492191AD5203A004AE3E9 /* TFOptionsKit */ = {
+			isa = PBXGroup;
+			children = (
+				5B5492331AD520D0004AE3E9 /* TFOptionsKit.h */,
+				5B5492341AD520D0004AE3E9 /* TFOptionsKit.m */,
+				5B54921A1AD5203A004AE3E9 /* Supporting Files */,
+			);
+			path = TFOptionsKit;
+			sourceTree = "<group>";
+		};
+		5B54921A1AD5203A004AE3E9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5B54921B1AD5203A004AE3E9 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5B5492261AD5203A004AE3E9 /* TFOptionsKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				5B5492291AD5203A004AE3E9 /* TFOptionsKitTests.m */,
+				5B5492271AD5203A004AE3E9 /* Supporting Files */,
+				5B5492371AD521DC004AE3E9 /* testValues.plist */,
+			);
+			path = TFOptionsKitTests;
+			sourceTree = "<group>";
+		};
+		5B5492271AD5203A004AE3E9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5B5492281AD5203A004AE3E9 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		5B5492141AD5203A004AE3E9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B5492351AD520D0004AE3E9 /* TFOptionsKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		5B5492161AD5203A004AE3E9 /* TFOptionsKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B54922D1AD5203A004AE3E9 /* Build configuration list for PBXNativeTarget "TFOptionsKit" */;
+			buildPhases = (
+				5B5492121AD5203A004AE3E9 /* Sources */,
+				5B5492131AD5203A004AE3E9 /* Frameworks */,
+				5B5492141AD5203A004AE3E9 /* Headers */,
+				5B5492151AD5203A004AE3E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TFOptionsKit;
+			productName = TFOptionsKit;
+			productReference = 5B5492171AD5203A004AE3E9 /* TFOptionsKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		5B5492211AD5203A004AE3E9 /* TFOptionsKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B5492301AD5203A004AE3E9 /* Build configuration list for PBXNativeTarget "TFOptionsKitTests" */;
+			buildPhases = (
+				5B54921E1AD5203A004AE3E9 /* Sources */,
+				5B54921F1AD5203A004AE3E9 /* Frameworks */,
+				5B5492201AD5203A004AE3E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5B5492251AD5203A004AE3E9 /* PBXTargetDependency */,
+			);
+			name = TFOptionsKitTests;
+			productName = TFOptionsKitTests;
+			productReference = 5B5492221AD5203A004AE3E9 /* TFOptionsKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5B54920E1AD5203A004AE3E9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = "The Farm";
+				TargetAttributes = {
+					5B5492161AD5203A004AE3E9 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					5B5492211AD5203A004AE3E9 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+				};
+			};
+			buildConfigurationList = 5B5492111AD5203A004AE3E9 /* Build configuration list for PBXProject "TFOptionsKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 5B54920D1AD5203A004AE3E9;
+			productRefGroup = 5B5492181AD5203A004AE3E9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5B5492161AD5203A004AE3E9 /* TFOptionsKit */,
+				5B5492211AD5203A004AE3E9 /* TFOptionsKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5B5492151AD5203A004AE3E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B5492201AD5203A004AE3E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B5492381AD521DC004AE3E9 /* testValues.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5B5492121AD5203A004AE3E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B5492361AD520D0004AE3E9 /* TFOptionsKit.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B54921E1AD5203A004AE3E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B54922A1AD5203A004AE3E9 /* TFOptionsKitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5B5492251AD5203A004AE3E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B5492161AD5203A004AE3E9 /* TFOptionsKit */;
+			targetProxy = 5B5492241AD5203A004AE3E9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5B54922B1AD5203A004AE3E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		5B54922C1AD5203A004AE3E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5B54922E1AD5203A004AE3E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = TFOptionsKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		5B54922F1AD5203A004AE3E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = TFOptionsKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		5B5492311AD5203A004AE3E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TFOptionsKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5B5492321AD5203A004AE3E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TFOptionsKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5B5492111AD5203A004AE3E9 /* Build configuration list for PBXProject "TFOptionsKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B54922B1AD5203A004AE3E9 /* Debug */,
+				5B54922C1AD5203A004AE3E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5B54922D1AD5203A004AE3E9 /* Build configuration list for PBXNativeTarget "TFOptionsKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B54922E1AD5203A004AE3E9 /* Debug */,
+				5B54922F1AD5203A004AE3E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		5B5492301AD5203A004AE3E9 /* Build configuration list for PBXNativeTarget "TFOptionsKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B5492311AD5203A004AE3E9 /* Debug */,
+				5B5492321AD5203A004AE3E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5B54920E1AD5203A004AE3E9 /* Project object */;
+}
