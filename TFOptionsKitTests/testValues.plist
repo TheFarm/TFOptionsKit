@@ -26,5 +26,7 @@
 	<true/>
 	<key>Boolean test 2</key>
 	<false/>
+	<key>Color test</key>
+	<string>FF00FF</string>
 </dict>
 </plist>

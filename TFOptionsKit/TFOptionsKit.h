@@ -28,6 +28,7 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
 - (NSString *)stringForOption:(NSString *)optionKey default:(NSString *)defaultValue;
 - (NSNumber *)numberForOption:(NSString *)optionKey default:(NSNumber *)defaultValue;
 - (NSDate *)dateForOption:(NSString *)optionKey default:(NSDate *)defaultValue;
+- (UIColor *)colorForOption:(NSString *)optionKey default:(UIColor*)defaultValue;
 - (CGFloat)floatForOption:(NSString *)optionKey default:(CGFloat)defaultValue;
 - (NSInteger)intForOption:(NSString *)optionKey default:(NSInteger)defaultValue;
 - (BOOL)boolForOption:(NSString *)optionKey default:(BOOL)defaultValue;
@@ -56,6 +57,10 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
 
 #ifndef dateOption
 #define dateOption(_key, _default) [[TFOptionsKit sharedOptions] dateForOption:_key default:_default]
+#endif
+
+#ifndef colorOption
+#define colorOption(_key, _default) [[TFOptionsKit sharedOptions] colorForOption:_key default:_default]
 #endif
 
 #ifndef floatOption

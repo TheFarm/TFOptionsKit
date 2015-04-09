@@ -111,4 +111,18 @@
     
 }
 
+
+- (void)testColor {
+    
+    UIColor *loadedColor = colorOption(@"Color test", [UIColor blackColor]);
+    NSLog(@"Color: %@", loadedColor);
+
+    XCTAssert([loadedColor isEqual:[UIColor colorWithRed:1.0 green:0.0 blue:1.0 alpha:1]]);
+    
+    UIColor *defaultColor = colorOption(@"This color doesn't exist", [UIColor colorWithRed:1.0 green:0.5 blue:1.0 alpha:1.0]);
+    XCTAssert([defaultColor isEqual:[UIColor colorWithRed:1.0 green:0.5 blue:1.0 alpha:1.0]]);
+    
+}
+
+
 @end

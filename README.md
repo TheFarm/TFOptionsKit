@@ -18,20 +18,50 @@ if (boolOption(@"My boolean", NO)) {
 }
 ```
 ## Macros
-* **option** for any kind of object
-* **arrayOption** for arrays
-* **dictOption** for dictionaries
-* **stringOption** for strings
-* **numberOption** for number objects
-* **floatOption** for floats
-* **intOption** for integers
-* **boolOption** for booleans
-
 They all take two parameters: key and default.
 ```
-NSString* loadedValue = stringOption(@"The key for my data", @"No, default loaded");
-NSLog(@"Did the option load correctly? %@", loadedValue);
+NSString* loadedValue = stringOption(@”The key for my data”, @”No, default loaded”);
+NSLog(@”Did the option load correctly? %@”, loadedValue);
 ```
+
+Available macros in short:
+* **option**
+* **arrayOption**
+* **dictOption**
+* **stringOption**
+* **numberOption**
+* **colorOption**
+* **floatOption**
+* **intOption**
+* **boolOption**
+
+### option
+Any kind of object
+
+### arrayOption
+Returns an NSArray of any data stored in an array in the plist.
+
+### dictOption
+Returns an NSDictionary with all things in a dictionary from the plist.
+
+### stringOption
+A string. NSString to be exact.
+
+### numberOption
+NSNumber object.
+
+### colorOption
+This type of option wants a string value consisting of a hexadecimal color code.
+Returns an UIColor object
+
+### floatOption
+Requires an NSNumber compatible plist field. The data is converted to CGFloat using ```[number floatValue]```
+
+### intOption
+Takes an NSNumber and returns ```[number floatValue]```
+
+### boolValue
+Returns ```[number boolValue]``` on a number field from the plist.
 
 ## Licence
 

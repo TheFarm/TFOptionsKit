@@ -8,6 +8,10 @@
 
 #import "TFOptionsKit.h"
 
+#ifndef UIColorFromRGBA
+#define UIColorFromRGBA(rgbaValue) [UIColor colorWithRed:((float)((rgbaValue & 0xFF000000) >> 24))/255.0 green:((float)((rgbaValue & 0xFF0000) >> 16))/255.0 blue:((float)((rgbaValue & 0xFF00) >> 8))/255.0 alpha:((float)(rgbaValue & 0xFF))/255.0]
+#endif
+
 @interface TFOptionsKit()
 @property (strong, nonatomic) NSDictionary *options;
 @end
@@ -83,6 +87,29 @@
     } else {
         return defaultValue;
     }
+}
+
+
+- (UIColor *)colorForOption:(NSString *)optionKey default:(UIColor *)defaultValue {
+    NSString *hexColor = [self stringForOption:optionKey default:nil];
+
+    if (hexColor != nil && ![hexColor isEqualToString:@""]) {
+        hexColor = [hexColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        
+        if ([hexColor length] == 6) {
+            hexColor = [hexColor stringByAppendingString:@"FF"];
+        }
+        
+        unsigned int rgbHexValue;
+        
+        NSScanner *scanner = [NSScanner scannerWithString:hexColor];
+        BOOL successful = [scanner scanHexInt:&rgbHexValue];
+        
+        if (successful) {
+            defaultValue = UIColorFromRGBA(rgbHexValue);
+        }
+    }
+    return defaultValue;
 }
 
 
