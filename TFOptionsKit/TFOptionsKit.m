@@ -13,7 +13,9 @@
 #endif
 
 @interface TFOptionsKit()
+
 @property (strong, nonatomic) NSDictionary *options;
+
 @end
 
 @implementation TFOptionsKit
@@ -28,16 +30,25 @@
 }
 
 
-- (instancetype)init {
-    if (self = [super init]) {
-        self.options = @{};
+- (void)useFileWithPath:(NSString *)optionsPath {
+    NSMutableDictionary *originalOptions = [self.options mutableCopy] ? : [@{} mutableCopy];
+    NSDictionary *options = [[NSDictionary alloc] initWithContentsOfFile:optionsPath];
+
+    if (options) {
+        [originalOptions addEntriesFromDictionary:options];
+        self.options = originalOptions;
     }
-    return self;
 }
 
 
-- (void)useFileWithPath:(NSString*)optionsPath {
-    self.options = [[NSDictionary alloc] initWithContentsOfFile:optionsPath];
+- (void)useInfoPlistSettingsKey:(NSString *)settingsKey {
+    NSMutableDictionary *originalOptions = [self.options mutableCopy] ? : [@{} mutableCopy];
+    NSDictionary *options = [[NSBundle mainBundle] infoDictionary][settingsKey];
+    
+    if (options) {
+        [originalOptions addEntriesFromDictionary:options];
+        self.options = originalOptions;
+    }
 }
 
 
@@ -48,6 +59,7 @@
         return defaultValue;
     }
 }
+
 
 - (NSArray *)arrayForOption:(NSString *)optionKey default:(NSArray *)defaultValue {
     id object = [self objectForOption:optionKey default:defaultValue];
@@ -67,7 +79,6 @@
         return defaultValue;
     }
 }
-
 
 
 - (NSString *)stringForOption:(NSString *)optionKey default:(NSString *)defaultValue {
@@ -136,6 +147,5 @@
 - (BOOL)boolForOption:(NSString *)optionKey default:(BOOL)defaultValue {
     return [[self numberForOption:optionKey default:@(defaultValue)] boolValue];
 }
-
 
 @end

@@ -21,7 +21,9 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
 
 + (instancetype)sharedOptions;
 
-- (void)useFileWithPath:(NSString*)optionsPath;
+- (void)useFileWithPath:(NSString *)optionsPath;
+- (void)useInfoPlistSettingsKey:(NSString *)settingsKey;
+
 - (id)objectForOption:(NSString *)optionKey default:(id)defaultValue;
 - (NSArray *)arrayForOption:(NSString *)optionKey default:(NSArray *)defaultValue;
 - (NSDictionary *)dictForOption:(NSString *)optionKey default:(NSDictionary *)defaultValue;
