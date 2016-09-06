@@ -70,7 +70,7 @@ Available macros in short:
 * **TF_uintOption**
 * **TF_boolOption**
 
-### option
+### TF_option
 Any kind of object
 
 ### TF_arrayOption
