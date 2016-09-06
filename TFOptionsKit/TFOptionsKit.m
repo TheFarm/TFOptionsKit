@@ -338,8 +338,8 @@
 }
 
 
-- (CGFloat)floatForOption:(NSString *)optionKey
-                  default:(CGFloat)defaultValue
+- (float)floatForOption:(NSString *)optionKey
+                default:(float)defaultValue
 {
     return [[self numberForOption:optionKey
                           default:@(defaultValue)] floatValue];
