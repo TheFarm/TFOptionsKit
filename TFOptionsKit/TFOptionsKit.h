@@ -24,8 +24,8 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 //! Project version number for TFOptionsKit.
 FOUNDATION_EXPORT double TFOptionsKitVersionNumber;
@@ -237,8 +237,8 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
 - (nullable UIColor *)colorForOption:(nonnull NSString *)optionKey
                              default:(nullable UIColor*)defaultValue DEPRECATED_ATTRIBUTE;
 
-- (CGFloat)floatForOption:(nonnull NSString *)optionKey
-                  default:(CGFloat)defaultValue DEPRECATED_ATTRIBUTE;
+- (float)floatForOption:(nonnull NSString *)optionKey
+                default:(float)defaultValue DEPRECATED_ATTRIBUTE;
 
 - (NSInteger)intForOption:(nonnull NSString *)optionKey
                   default:(NSInteger)defaultValue DEPRECATED_ATTRIBUTE;
