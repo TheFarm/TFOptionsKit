@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		168389111D7EF6B10041B000 /* Overrides.plist in Resources */ = {isa = PBXBuildFile; fileRef = 168389101D7EF6B10041B000 /* Overrides.plist */; };
 		5B5492231AD5203A004AE3E9 /* TFOptionsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5492171AD5203A004AE3E9 /* TFOptionsKit.framework */; };
 		5B54922A1AD5203A004AE3E9 /* TFOptionsKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5492291AD5203A004AE3E9 /* TFOptionsKitTests.m */; };
 		5B5492351AD520D0004AE3E9 /* TFOptionsKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B5492331AD520D0004AE3E9 /* TFOptionsKit.h */; };
 		5B5492361AD520D0004AE3E9 /* TFOptionsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5492341AD520D0004AE3E9 /* TFOptionsKit.m */; };
-		5B5492381AD521DC004AE3E9 /* testValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B5492371AD521DC004AE3E9 /* testValues.plist */; };
+		5B5492381AD521DC004AE3E9 /* TestValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B5492371AD521DC004AE3E9 /* TestValues.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		168389101D7EF6B10041B000 /* Overrides.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Overrides.plist; sourceTree = "<group>"; };
 		5B5492171AD5203A004AE3E9 /* TFOptionsKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TFOptionsKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B54921B1AD5203A004AE3E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B5492221AD5203A004AE3E9 /* TFOptionsKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TFOptionsKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,7 +34,7 @@
 		5B5492291AD5203A004AE3E9 /* TFOptionsKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TFOptionsKitTests.m; sourceTree = "<group>"; };
 		5B5492331AD520D0004AE3E9 /* TFOptionsKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFOptionsKit.h; sourceTree = "<group>"; };
 		5B5492341AD520D0004AE3E9 /* TFOptionsKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFOptionsKit.m; sourceTree = "<group>"; };
-		5B5492371AD521DC004AE3E9 /* testValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = testValues.plist; sourceTree = "<group>"; };
+		5B5492371AD521DC004AE3E9 /* TestValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestValues.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +96,9 @@
 			isa = PBXGroup;
 			children = (
 				5B5492291AD5203A004AE3E9 /* TFOptionsKitTests.m */,
+				5B5492371AD521DC004AE3E9 /* TestValues.plist */,
+				168389101D7EF6B10041B000 /* Overrides.plist */,
 				5B5492271AD5203A004AE3E9 /* Supporting Files */,
-				5B5492371AD521DC004AE3E9 /* testValues.plist */,
 			);
 			path = TFOptionsKitTests;
 			sourceTree = "<group>";
@@ -205,7 +208,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B5492381AD521DC004AE3E9 /* testValues.plist in Resources */,
+				168389111D7EF6B10041B000 /* Overrides.plist in Resources */,
+				5B5492381AD521DC004AE3E9 /* TestValues.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +406,7 @@
 				5B54922F1AD5203A004AE3E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5B5492301AD5203A004AE3E9 /* Build configuration list for PBXNativeTarget "TFOptionsKitTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +415,7 @@
 				5B5492321AD5203A004AE3E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

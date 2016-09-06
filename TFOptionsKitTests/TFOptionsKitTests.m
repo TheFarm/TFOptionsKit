@@ -2,9 +2,27 @@
 //  TFOptionsKitTests.m
 //  TFOptionsKitTests
 //
-//  Created by Mikael Grön on 2015-04-08.
-//  Copyright (c) 2015 The Farm. All rights reserved.
+//  The MIT License (MIT)
 //
+//  Created by Mikael Grön on 2015-04-08.
+//  Copyright (c) 2015 The Farm (http://thefarm.se/). All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of
+//  this software and associated documentation files (the "Software"), to deal in
+//  the Software without restriction, including without limitation the rights to
+//  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+//  the Software, and to permit persons to whom the Software is furnished to do so,
+//  subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+//  FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+//  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+//  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+//  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
@@ -16,113 +34,125 @@
 
 @implementation TFOptionsKitTests
 
-- (void)setUp {
+- (void)setUp
+{
     [super setUp];
-    NSString *pathToTestData = [[NSBundle bundleForClass:[self class] ] pathForResource:@"testValues" ofType:@"plist"];
-    [[TFOptionsKit sharedOptions] useFileWithPath:pathToTestData];
+    NSString *pathToTestData = [[NSBundle bundleForClass:[self class] ] pathForResource:@"TestValues" ofType:@"plist"];
+    NSString *pathToTestOverrides = [[NSBundle bundleForClass:[self class] ] pathForResource:@"Overrides" ofType:@"plist"];
+    [[TFOptionsKit sharedOptions] setDefaultOptionsPath:pathToTestData];
+    [[TFOptionsKit sharedOptions] loadOptionsOverrideFromPath:pathToTestOverrides];
 }
 
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+- (void)tearDown
+{
+    [[TFOptionsKit sharedOptions] clearAllOptions];
     [super tearDown];
 }
 
-
-- (void)testArray {
-    NSArray *array = arrayOption(@"Array test", @[@"Wrong"]);
+- (void)testArray
+{
+    NSArray *array = TF_arrayOption(nil, @"Array test", @[]);
     XCTAssert(array && [array isKindOfClass:[NSArray class]]);
     XCTAssert([array count] > 1);
     XCTAssert([array[0] isEqualToString:@"Value 1"]);
     XCTAssert([array[1] isEqualToString:@"Value 2"]);
-    
-    NSArray *defaultArray = arrayOption(@"Array that doesn't exist", @[@"Correct"]);
-    XCTAssert(defaultArray && [defaultArray isKindOfClass:[NSArray class]]);
-    XCTAssert([defaultArray[0] isEqualToString:@"Correct"]);
 }
 
 
-- (void)testDictionary {
-    NSDictionary *dict = dictOption(@"Dictionary test", @{@"Wrong": @"Value"});
+- (void)testDictionary
+{
+    NSDictionary *dict = TF_dictOption(nil, @"Dictionary test", @{});
     XCTAssert(dict && [dict isKindOfClass:[NSDictionary class]]);
     XCTAssert([[dict objectForKey:@"first"] isEqualToString:@"Value 1"]);
     XCTAssert([[dict objectForKey:@"second"] isEqualToString:@"Value 2"]);
-    
-    NSDictionary *defaultDict = dictOption(@"Dict that doesn't exist", @{@"Value": @"is correct"});
-    XCTAssert(defaultDict && [defaultDict isKindOfClass:[NSDictionary class]]);
-    XCTAssert([[defaultDict objectForKey:@"Value"] isEqualToString:@"is correct"]);
 }
 
 
-- (void)testString {
-    NSString *string = stringOption(@"String test", @"Wrong");
+- (void)testString
+{
+    NSString *string = TF_stringOption(nil, @"String test", @"");
     XCTAssert(string && [string isEqualToString:@"The string"]);
 }
 
 
-- (void)testNumber {
-    NSNumber *number = numberOption(@"Number test 1", @42);
+- (void)testNumber
+{
+    NSNumber *number = TF_numberOption(nil, @"Number test 1", @0);
     XCTAssert(number && [number isEqualToNumber:@31337]);
 }
 
 
-- (void)testDate2 {
-    NSDate *date = dateOption(@"Date test", [NSDate date]);
+- (void)testDate2
+{
+    NSDate *date = TF_dateOption(nil, @"Date test", [NSDate date]);
     XCTAssert(date && [date timeIntervalSince1970] == 1428480000);
 }
 
 
-- (void)testInteger {
+- (void)testInteger
+{
     
-    NSInteger integerValue = intOption(@"Number test 1", 42);
+    NSInteger integerValue = TF_intOption(nil, @"Number test 1", 0);
     XCTAssert(integerValue == 31337);
     
-    NSInteger otherIntegerValue = intOption(@"No integer here", 42);
-    XCTAssert(otherIntegerValue == 42);
+    NSInteger otherIntegerValue = TF_intOption(nil, @"No integer here", 10);
+    XCTAssert(otherIntegerValue == 10);
     
 }
 
 
-- (void)testFloat {
+- (void)testFloat
+{
     
-    CGFloat floatValue = floatOption(@"Number test 2", 3.5);
+    CGFloat floatValue = TF_floatOption(nil, @"Number test 2", 0.f);
     NSLog(@"Float value: %f", floatValue);
     XCTAssert(floatValue == 31.337f);
     
-    CGFloat otherFloatValue = floatOption(@"Nonexistant float", 42.42);
-    XCTAssert(otherFloatValue == 42.42f);
+    CGFloat otherFloatValue = TF_floatOption(nil, @"Nonexistant float", 10.f);
+    XCTAssert(otherFloatValue == 10.f);
     
 }
 
 
-- (void)testBool {
+- (void)testBool
+{
     
-    BOOL loadedValue = boolOption(@"Boolean test 1", NO);
+    BOOL loadedValue = TF_boolOption(nil, @"Boolean test 1", NO);
     XCTAssert(loadedValue == YES);
     
-    loadedValue = boolOption(@"Boolean test 2", YES);
+    loadedValue = TF_boolOption(nil, @"Boolean test 2", YES);
     XCTAssert(loadedValue == NO);
     
-    BOOL defaultValue = boolOption(@"No bool here!", NO);
-    XCTAssert(defaultValue == NO);
-    
-    defaultValue = boolOption(@"No bool here either!", YES);
+    BOOL defaultValue = TF_boolOption(nil, @"No bool here!", YES);
     XCTAssert(defaultValue == YES);
-    
 }
 
 
-- (void)testColor {
+- (void)testColor
+{
     
-    UIColor *loadedColor = colorOption(@"Color test", [UIColor blackColor]);
+    UIColor *loadedColor = TF_colorOption(nil, @"Color test", [UIColor blackColor]);
     NSLog(@"Color: %@", loadedColor);
 
     XCTAssert([loadedColor isEqual:[UIColor colorWithRed:1.0 green:0.0 blue:1.0 alpha:1]]);
     
-    UIColor *defaultColor = colorOption(@"This color doesn't exist", [UIColor colorWithRed:1.0 green:0.5 blue:1.0 alpha:1.0]);
-    XCTAssert([defaultColor isEqual:[UIColor colorWithRed:1.0 green:0.5 blue:1.0 alpha:1.0]]);
-    
+    UIColor *defaultColor = TF_colorOption(nil, @"This color doesn't exist", nil);
+    XCTAssertNil(defaultColor);
 }
 
+
+- (void)testNamespace
+{
+    NSString *test = TF_stringOption(@"Namespace/Nested/Deep", @"Key test", @"Default");
+    XCTAssertNotNil(test);
+    XCTAssertEqual([test isEqualToString:@"Test"], YES);
+}
+
+
+- (void)testOverride
+{
+    BOOL test = TF_boolOption(nil, @"Value to override", NO);
+    XCTAssertEqual(test, YES);
+}
 
 @end

@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Namespace</key>
+	<dict>
+		<key>Nested</key>
+		<dict>
+			<key>Deep</key>
+			<dict>
+				<key>Key test</key>
+				<string>Test</string>
+			</dict>
+		</dict>
+	</dict>
 	<key>Array test</key>
 	<array>
 		<string>Value 1</string>
@@ -28,5 +39,7 @@
 	<false/>
 	<key>Color test</key>
 	<string>FF00FF</string>
+	<key>Value to override</key>
+	<false/>
 </dict>
 </plist>
