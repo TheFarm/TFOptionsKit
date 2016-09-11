@@ -89,6 +89,11 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
 /* Resets both default and overrides to empty keys and values. */
 - (void)clearAllOptions;
 
+/* Returns a deep copy version of the entire current state.
+   
+   Use for debugging purposes only. */
+- (nullable NSDictionary *)copyOfCurrentState;
+
 /** Gets an object from the specified key and optional namespace
  
  The key represents a key in the dictionary containing all options.
@@ -110,11 +115,11 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
      defaultValue:nil];
  
  Or the macro:
-    TF_option(@"Root/Sub", @"Key", nil);
+    TF_option(@"Root/Sub", @"Key");
  
  It's recommended to use constants defining the namespace, like this:
     static NSString *const kYourNamespace = @"Root/Sub";
-    TF_option(kYourNamespace, @"Key", nil);
+    TF_option(kYourNamespace, @"Key");
  
  Namespaces are of course optional.
  
@@ -249,48 +254,92 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
 @end
 
 #ifndef TF_option
-#define TF_option(_namespace, _key, _default) [[TFOptionsKit sharedOptions] objectForOption:_key namespace:_namespace defaultValue:_default]
+#define TF_option(_namespace, _key) [[TFOptionsKit sharedOptions] objectForOption:_key namespace:_namespace defaultValue:nil]
 #endif
 
 #ifndef TF_arrayOption
-#define TF_arrayOption(_namespace, _key, _default) [[TFOptionsKit sharedOptions] arrayForOption:_key namespace:_namespace defaultValue:_default]
+#define TF_arrayOption(_namespace, _key) [[TFOptionsKit sharedOptions] arrayForOption:_key namespace:_namespace defaultValue:nil]
 #endif
 
 #ifndef TF_dictOption
-#define TF_dictOption(_namespace, _key, _default) [[TFOptionsKit sharedOptions] dictForOption:_key namespace:_namespace defaultValue:_default]
+#define TF_dictOption(_namespace, _key) [[TFOptionsKit sharedOptions] dictForOption:_key namespace:_namespace defaultValue:nil]
 #endif
 
 #ifndef TF_stringOption
-#define TF_stringOption(_namespace, _key, _default) [[TFOptionsKit sharedOptions] stringForOption:_key namespace:_namespace defaultValue:_default]
+#define TF_stringOption(_namespace, _key) [[TFOptionsKit sharedOptions] stringForOption:_key namespace:_namespace defaultValue:nil]
 #endif
 
 #ifndef TF_numberOption
-#define TF_numberOption(_namespace, _key, _default) [[TFOptionsKit sharedOptions] numberForOption:_key namespace:_namespace defaultValue:_default]
+#define TF_numberOption(_namespace, _key) [[TFOptionsKit sharedOptions] numberForOption:_key namespace:_namespace defaultValue:nil]
 #endif
 
 #ifndef TF_dateOption
-#define TF_dateOption(_namespace, _key, _default) [[TFOptionsKit sharedOptions] dateForOption:_key namespace:_namespace defaultValue:_default]
+#define TF_dateOption(_namespace, _key) [[TFOptionsKit sharedOptions] dateForOption:_key namespace:_namespace defaultValue:nil]
 #endif
 
 #ifndef TF_colorOption
-#define TF_colorOption(_namespace, _key, _default) [[TFOptionsKit sharedOptions] colorForOption:_key namespace:_namespace defaultValue:_default]
+#define TF_colorOption(_namespace, _key) [[TFOptionsKit sharedOptions] colorForOption:_key namespace:_namespace defaultValue:nil]
 #endif
 
 #ifndef TF_floatOption
-#define TF_floatOption(_namespace, _key, _default) [[TFOptionsKit sharedOptions] floatForOption:_key namespace:_namespace defaultValue:_default]
+#define TF_floatOption(_namespace, _key) [[TFOptionsKit sharedOptions] floatForOption:_key namespace:_namespace defaultValue:nil]
 #endif
 
 #ifndef TF_intOption
-#define TF_intOption(_namespace, _key, _default) [[TFOptionsKit sharedOptions] intForOption:_key namespace:_namespace defaultValue:_default]
+#define TF_intOption(_namespace, _key) [[TFOptionsKit sharedOptions] intForOption:_key namespace:_namespace defaultValue:nil]
 #endif
 
 #ifndef TF_uintOption
-#define TF_uintOption(_namespace, _key, _default) [[TFOptionsKit sharedOptions] uintForOption:_key namespace:_namespace defaultValue:_default]
+#define TF_uintOption(_namespace, _key) [[TFOptionsKit sharedOptions] uintForOption:_key namespace:_namespace defaultValue:nil]
+#endif
+
+#ifndef TF_boolOption
+#define TF_boolOption(_namespace, _key) [[TFOptionsKit sharedOptions] boolForOption:_key namespace:_namespace defaultValue:nil]
 #endif
 
 
-#ifndef TF_boolOption
-#define TF_boolOption(_namespace, _key, _default) [[TFOptionsKit sharedOptions] boolForOption:_key namespace:_namespace defaultValue:_default]
+#ifndef TF_optionValue
+#define TF_optionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] objectForOption:_key namespace:_namespace defaultValue:_default]
+#endif
+
+#ifndef TF_arrayOptionValue
+#define TF_arrayOptionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] arrayForOption:_key namespace:_namespace defaultValue:_default]
+#endif
+
+#ifndef TF_dictOptionValue
+#define TF_dictOptionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] dictForOption:_key namespace:_namespace defaultValue:_default]
+#endif
+
+#ifndef TF_stringOptionValue
+#define TF_stringOptionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] stringForOption:_key namespace:_namespace defaultValue:_default]
+#endif
+
+#ifndef TF_numberOptionValue
+#define TF_numberOptionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] numberForOption:_key namespace:_namespace defaultValue:_default]
+#endif
+
+#ifndef TF_dateOptionValue
+#define TF_dateOptionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] dateForOption:_key namespace:_namespace defaultValue:_default]
+#endif
+
+#ifndef TF_colorOptionValue
+#define TF_colorOptionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] colorForOption:_key namespace:_namespace defaultValue:_default]
+#endif
+
+#ifndef TF_floatOptionValue
+#define TF_floatOptionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] floatForOption:_key namespace:_namespace defaultValue:_default]
+#endif
+
+#ifndef TF_intOptionValue
+#define TF_intOptionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] intForOption:_key namespace:_namespace defaultValue:_default]
+#endif
+
+#ifndef TF_uintOptionValue
+#define TF_uintOptionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] uintForOption:_key namespace:_namespace defaultValue:_default]
+#endif
+
+#ifndef TF_boolOptionValue
+#define TF_boolOptionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] boolForOption:_key namespace:_namespace defaultValue:_default]
 #endif
 
 

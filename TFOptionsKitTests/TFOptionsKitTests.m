@@ -43,15 +43,17 @@
     [[TFOptionsKit sharedOptions] loadOptionsOverrideFromPath:pathToTestOverrides];
 }
 
+
 - (void)tearDown
 {
     [[TFOptionsKit sharedOptions] clearAllOptions];
     [super tearDown];
 }
 
+
 - (void)testArray
 {
-    NSArray *array = TF_arrayOption(nil, @"Array test", @[]);
+    NSArray *array = TF_arrayOption(nil, @"Array test");
     XCTAssert(array && [array isKindOfClass:[NSArray class]]);
     XCTAssert([array count] > 1);
     XCTAssert([array[0] isEqualToString:@"Value 1"]);
@@ -61,7 +63,7 @@
 
 - (void)testDictionary
 {
-    NSDictionary *dict = TF_dictOption(nil, @"Dictionary test", @{});
+    NSDictionary *dict = TF_dictOption(nil, @"Dictionary test");
     XCTAssert(dict && [dict isKindOfClass:[NSDictionary class]]);
     XCTAssert([[dict objectForKey:@"first"] isEqualToString:@"Value 1"]);
     XCTAssert([[dict objectForKey:@"second"] isEqualToString:@"Value 2"]);
@@ -70,99 +72,113 @@
 
 - (void)testString
 {
-    NSString *string = TF_stringOption(nil, @"String test", @"");
+    NSString *string = TF_stringOption(nil, @"String test");
     XCTAssert(string && [string isEqualToString:@"The string"]);
 }
 
 
 - (void)testNumber
 {
-    NSNumber *number = TF_numberOption(nil, @"Number test 1", @0);
+    NSNumber *number = TF_numberOption(nil, @"Number test 1");
     XCTAssert(number && [number isEqualToNumber:@31337]);
 }
 
 
 - (void)testDate2
 {
-    NSDate *date = TF_dateOption(nil, @"Date test", [NSDate date]);
+    NSDate *date = TF_dateOption(nil, @"Date test");
     XCTAssert(date && [date timeIntervalSince1970] == 1428480000);
 }
 
 
 - (void)testInteger
 {
-    
-    NSInteger integerValue = TF_intOption(nil, @"Number test 1", @0);
+    NSInteger integerValue = TF_intOption(nil, @"Number test 1");
     XCTAssert(integerValue == 31337);
-    
-    NSInteger otherIntegerValue = TF_intOption(nil, @"No integer here", @10);
-    XCTAssert(otherIntegerValue == 10);
-    
 }
 
 
 - (void)testFloat
 {
-    
-    CGFloat floatValue = TF_floatOption(nil, @"Number test 2", @0.f);
-    NSLog(@"Float value: %f", floatValue);
+    CGFloat floatValue = TF_floatOption(nil, @"Number test 2");
     XCTAssert(floatValue == 31.337f);
-    
-    CGFloat otherFloatValue = TF_floatOption(nil, @"Nonexistant float", @10.f);
-    XCTAssert(otherFloatValue == 10.f);
-    
 }
 
 
 - (void)testBool
 {
-    
-    BOOL loadedValue = TF_boolOption(nil, @"Boolean test 1", @NO);
+    BOOL loadedValue = TF_boolOption(nil, @"Boolean test 1");
     XCTAssert(loadedValue == YES);
-    
-    loadedValue = TF_boolOption(nil, @"Boolean test 2", @YES);
-    XCTAssert(loadedValue == NO);
-    
-    BOOL defaultValue = TF_boolOption(nil, @"No bool here!", @YES);
-    XCTAssert(defaultValue == YES);
 }
 
 
 - (void)testColor
 {
-    
-    UIColor *loadedColor = TF_colorOption(nil, @"Color test", [UIColor blackColor]);
-    NSLog(@"Color: %@", loadedColor);
-
+    UIColor *loadedColor = TF_colorOption(nil, @"Color test");
     XCTAssert([loadedColor isEqual:[UIColor colorWithRed:1.0 green:0.0 blue:1.0 alpha:1]]);
-    
-    XCTAssertThrowsSpecific(TF_colorOption(nil, @"This color doesn't exist", nil), NSException, @"Expected an exception");
+}
+
+
+- (void)testNonExistantKeyWithoutDefaultValue
+{
+    XCTAssertThrowsSpecific(TF_colorOption(nil, @"This color doesn't exist"), NSException, @"Expected an exception");
+}
+
+
+- (void)testNonExistantKeyWithDefaultValue
+{
+    XCTAssertTrue(TF_boolOptionValue(nil, @"This bool doesn't exist", @YES));
+}
+
+
+- (void)testNonExistantNamespace
+{
+    XCTAssertThrowsSpecific(TF_boolOption(@"Namespace doesn't exist", @"Key doesn't exist"), NSException, @"Expected an exception");
+}
+
+
+- (void)testNonExistantNamespaceWithDefaultValue
+{
+    XCTAssertTrue(TF_boolOptionValue(@"Namespace doesn't exist", @"This bool doesn't exist", @YES));
 }
 
 
 - (void)testNamespace
 {
-    NSString *test = TF_stringOption(@"Namespace/Nested/Deep", @"Key test", @"Default");
-    XCTAssertNotNil(test);
+    NSString *test = TF_stringOption(@"Namespace/Nested/Deep", @"Key test");
     XCTAssertEqual([test isEqualToString:@"Test"], YES);
 }
 
 
 - (void)testOverride
 {
-    BOOL test = TF_boolOption(nil, @"Value to override", @NO);
+    BOOL test = TF_boolOption(nil, @"Value to override");
     XCTAssertEqual(test, YES);
+}
+
+
+- (void)testUnexpectedClass
+{
+    XCTAssertThrowsSpecific(TF_boolOption(nil, @"Date test"), NSException, @"Expected an exception");
 }
 
 
 - (void)testNestedDictionaryOverride
 {
-    NSDictionary *dict = TF_dictOption(nil, @"Dictionary to override", nil);
-
+    NSDictionary *dict = TF_dictOption(nil, @"Dictionary to override");
     XCTAssertNotNil(dict[@"dict"]);
     XCTAssertTrue([dict[@"a value"] isEqualToString:@"overriden"]);
     XCTAssertTrue([dict[@"another dict"][@"value 1"] isEqualToString:@"first"]);
     XCTAssertTrue([dict[@"another dict"][@"value 2"] isEqualToString:@"third"]);
+}
+
+
+- (void)testPlistFileNotFoundException
+{
+    [[TFOptionsKit sharedOptions] clearAllOptions];
+    XCTAssertThrowsSpecific([[TFOptionsKit sharedOptions] setDefaultOptionsPath:@"Bogus/Path/To/Bogus.plist"], NSException, @"Expected an exception");
+    XCTAssertThrowsSpecific([[TFOptionsKit sharedOptions] loadOptionsOverrideFromPath:@"Bogus/Path/To/Bogus.plist"], NSException, @"Expected an exception");
+    XCTAssertThrowsSpecific([[TFOptionsKit sharedOptions] loadInfoPlistOverridesFromKey:@"Bogus key"], NSException, @"Expected an exception");
 }
 
 @end

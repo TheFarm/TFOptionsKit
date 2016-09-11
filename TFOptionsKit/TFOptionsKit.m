@@ -48,6 +48,7 @@
     return sharedOptions;
 }
 
+
 + (void)requireThat:(BOOL)condition format:(NSString *)format, ...
 {
     va_list args;
@@ -58,9 +59,17 @@
     va_end(args);
 }
 
+
 - (void)clearAllOptions
 {
-    self.options = [NSDictionary dictionary];
+    self.options = nil;
+}
+
+
+- (NSDictionary *)copyOfCurrentState
+{
+    NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:self.options];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
 }
 
 
@@ -95,36 +104,39 @@
 {
     self.options = [[NSDictionary alloc] initWithContentsOfFile:defaultPath];
 
-    [TFOptionsKit requireThat:self.options != nil format:@"Defaults file at %@ not found.", defaultPath];
+    [TFOptionsKit requireThat:self.options != nil format:@"Defaults file at `%@` not found.", defaultPath];
 }
 
 
 - (void)loadOptionsOverrideFromPath:(NSString *)overridesPath
 {
     NSDictionary *dictToMerge = [[NSDictionary alloc] initWithContentsOfFile:overridesPath];
-    [TFOptionsKit requireThat:dictToMerge != nil format:@"Override file at %@ not found.", overridesPath];
+    
+    [TFOptionsKit requireThat:dictToMerge != nil format:@"Override file at `%@` not found.", overridesPath];
+    
     self.options = [TFOptionsKit mergeDictionary:self.options withDictionary:dictToMerge];
-    NSLog(@"%@", self.options);
 }
 
 
 - (void)loadInfoPlistOverridesFromKey:(NSString *)settingsKey
 {
     NSDictionary *dictToMerge = [[NSBundle mainBundle] infoDictionary][settingsKey];
-    [TFOptionsKit requireThat:dictToMerge != nil format:@"Could not find %@ key in info.plist", settingsKey];
-    [TFOptionsKit mergeDictionary:self.options withDictionary:dictToMerge];
+    
+    [TFOptionsKit requireThat:dictToMerge != nil format:@"Could not find `%@` key in Info.plist", settingsKey];
+    
+    self.options = [TFOptionsKit mergeDictionary:self.options withDictionary:dictToMerge];
 }
 
 
 - (NSDictionary *)options:(NSDictionary *)options
             fromNamespace:(NSString *)namespace
 {
-    NSArray *components = [namespace componentsSeparatedByString:@"/"];
-    for (NSString *path in components) {
-        options = options[path];
+    if (namespace.length) {
+        NSArray *components = [namespace componentsSeparatedByString:@"/"];
+        for (NSString *path in components) {
+            options = options[path];
+        }
     }
-
-    [TFOptionsKit requireThat:options != nil format:@"Namespace %@ not found", namespace];
     return options;
 }
 
@@ -151,7 +163,7 @@
     
     [TFOptionsKit
      requireThat:(object != nil || defaultValue != nil)
-     format:@"Key %@%@%@ not found, no default value provided", namespace ? : @"", namespace ? @"/" : @"", key];
+     format:@"Key `%@%@%@` not found, no default value provided", namespace ? : @"", namespace ? @"/" : @"", key];
 
     return object ? : defaultValue;
 }
@@ -226,7 +238,9 @@
         NSScanner *scanner = [NSScanner scannerWithString:hexColor];
         BOOL successful = [scanner scanHexInt:&rgbHexValue];
 
-        [TFOptionsKit requireThat:(successful || defaultValue != nil) format:@"No valid color found on key path: %@%@%@ and defaultValue is not set", namespace ? : @"", namespace ? @"/" : @"", key];
+        [TFOptionsKit
+         requireThat:(successful || defaultValue != nil)
+         format:@"No valid color found on key path: `%@%@%@` and defaultValue is not set", namespace ? : @"", namespace ? @"/" : @"", key];
         
         return UIColorFromRGBA(rgbHexValue);
     }
