@@ -92,10 +92,10 @@
 - (void)testInteger
 {
     
-    NSInteger integerValue = TF_intOption(nil, @"Number test 1", 0);
+    NSInteger integerValue = TF_intOption(nil, @"Number test 1", @0);
     XCTAssert(integerValue == 31337);
     
-    NSInteger otherIntegerValue = TF_intOption(nil, @"No integer here", 10);
+    NSInteger otherIntegerValue = TF_intOption(nil, @"No integer here", @10);
     XCTAssert(otherIntegerValue == 10);
     
 }
@@ -104,11 +104,11 @@
 - (void)testFloat
 {
     
-    CGFloat floatValue = TF_floatOption(nil, @"Number test 2", 0.f);
+    CGFloat floatValue = TF_floatOption(nil, @"Number test 2", @0.f);
     NSLog(@"Float value: %f", floatValue);
     XCTAssert(floatValue == 31.337f);
     
-    CGFloat otherFloatValue = TF_floatOption(nil, @"Nonexistant float", 10.f);
+    CGFloat otherFloatValue = TF_floatOption(nil, @"Nonexistant float", @10.f);
     XCTAssert(otherFloatValue == 10.f);
     
 }
@@ -117,13 +117,13 @@
 - (void)testBool
 {
     
-    BOOL loadedValue = TF_boolOption(nil, @"Boolean test 1", NO);
+    BOOL loadedValue = TF_boolOption(nil, @"Boolean test 1", @NO);
     XCTAssert(loadedValue == YES);
     
-    loadedValue = TF_boolOption(nil, @"Boolean test 2", YES);
+    loadedValue = TF_boolOption(nil, @"Boolean test 2", @YES);
     XCTAssert(loadedValue == NO);
     
-    BOOL defaultValue = TF_boolOption(nil, @"No bool here!", YES);
+    BOOL defaultValue = TF_boolOption(nil, @"No bool here!", @YES);
     XCTAssert(defaultValue == YES);
 }
 
@@ -136,8 +136,7 @@
 
     XCTAssert([loadedColor isEqual:[UIColor colorWithRed:1.0 green:0.0 blue:1.0 alpha:1]]);
     
-    UIColor *defaultColor = TF_colorOption(nil, @"This color doesn't exist", nil);
-    XCTAssertNil(defaultColor);
+    XCTAssertThrowsSpecific(TF_colorOption(nil, @"This color doesn't exist", nil), NSException, @"Expected an exception");
 }
 
 
@@ -151,8 +150,19 @@
 
 - (void)testOverride
 {
-    BOOL test = TF_boolOption(nil, @"Value to override", NO);
+    BOOL test = TF_boolOption(nil, @"Value to override", @NO);
     XCTAssertEqual(test, YES);
+}
+
+
+- (void)testNestedDictionaryOverride
+{
+    NSDictionary *dict = TF_dictOption(nil, @"Dictionary to override", nil);
+
+    XCTAssertNotNil(dict[@"dict"]);
+    XCTAssertTrue([dict[@"a value"] isEqualToString:@"overriden"]);
+    XCTAssertTrue([dict[@"another dict"][@"value 1"] isEqualToString:@"first"]);
+    XCTAssertTrue([dict[@"another dict"][@"value 2"] isEqualToString:@"third"]);
 }
 
 @end

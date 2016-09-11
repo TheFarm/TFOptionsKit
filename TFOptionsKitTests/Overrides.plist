@@ -4,5 +4,15 @@
 <dict>
 	<key>Value to override</key>
 	<true/>
+	<key>Dictionary to override</key>
+	<dict>
+		<key>a value</key>
+		<string>overriden</string>
+		<key>another dict</key>
+		<dict>
+			<key>value 2</key>
+			<string>third</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

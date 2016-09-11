@@ -32,7 +32,6 @@
 
 @interface TFOptionsKit()
 
-@property (strong, nonatomic) NSDictionary *defaults;
 @property (strong, nonatomic) NSDictionary *options;
 
 @end
@@ -49,41 +48,71 @@
     return sharedOptions;
 }
 
++ (void)requireThat:(BOOL)condition format:(NSString *)format, ...
+{
+    va_list args;
+    va_start(args, format);
+    if (!condition) {
+        [NSException raise:@"TFOptionsKit exception" format:format arguments:args];
+    }
+    va_end(args);
+}
 
 - (void)clearAllOptions
 {
     self.options = [NSDictionary dictionary];
-    self.defaults = [NSDictionary dictionary];
 }
 
 
++ (NSDictionary *)mergeDictionary:(NSDictionary *)baseDictionary
+                   withDictionary:(NSDictionary *)extensionDictionary
+{
+    NSMutableDictionary *resultDictionary = [NSMutableDictionary dictionaryWithDictionary:baseDictionary];
+    [extensionDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        BOOL isDict = [obj isKindOfClass:[NSDictionary class]];
+        BOOL hasValue = resultDictionary[key] != nil;
+        id setObj = obj;
+        
+        if (hasValue && isDict) {
+            BOOL hasDict = [baseDictionary[key] isKindOfClass:[NSDictionary class]];
+            
+            if ( hasDict ) {
+                NSDictionary *extendedChildDictionary =
+                [self mergeDictionary:baseDictionary[key] withDictionary:obj];
+                
+                setObj = extendedChildDictionary;
+            }
+        }
+        
+        resultDictionary[key] = setObj;
+    }];
+    
+    return resultDictionary;
+    
+}
+
 - (void)setDefaultOptionsPath:(NSString *)defaultPath
 {
-    self.defaults = [[NSDictionary alloc] initWithContentsOfFile:defaultPath];
+    self.options = [[NSDictionary alloc] initWithContentsOfFile:defaultPath];
+
+    [TFOptionsKit requireThat:self.options != nil format:@"Defaults file at %@ not found.", defaultPath];
 }
 
 
 - (void)loadOptionsOverrideFromPath:(NSString *)overridesPath
 {
-    NSMutableDictionary *originalOptions = [self.options mutableCopy] ? : [NSMutableDictionary dictionary];
-    NSDictionary *options = [[NSDictionary alloc] initWithContentsOfFile:overridesPath];
-    
-    if (options) {
-        [originalOptions addEntriesFromDictionary:options];
-        self.options = originalOptions;
-    }
+    NSDictionary *dictToMerge = [[NSDictionary alloc] initWithContentsOfFile:overridesPath];
+    [TFOptionsKit requireThat:dictToMerge != nil format:@"Override file at %@ not found.", overridesPath];
+    self.options = [TFOptionsKit mergeDictionary:self.options withDictionary:dictToMerge];
+    NSLog(@"%@", self.options);
 }
 
 
 - (void)loadInfoPlistOverridesFromKey:(NSString *)settingsKey
 {
-    NSMutableDictionary *originalOptions = [self.options mutableCopy] ? : [NSMutableDictionary dictionary];
-    NSDictionary *options = [[NSBundle mainBundle] infoDictionary][settingsKey];
-    
-    if (options) {
-        [originalOptions addEntriesFromDictionary:options];
-        self.options = originalOptions;
-    }
+    NSDictionary *dictToMerge = [[NSBundle mainBundle] infoDictionary][settingsKey];
+    [TFOptionsKit requireThat:dictToMerge != nil format:@"Could not find %@ key in info.plist", settingsKey];
+    [TFOptionsKit mergeDictionary:self.options withDictionary:dictToMerge];
 }
 
 
@@ -94,14 +123,23 @@
     for (NSString *path in components) {
         options = options[path];
     }
+
+    [TFOptionsKit requireThat:options != nil format:@"Namespace %@ not found", namespace];
     return options;
 }
 
 
 + (BOOL)validate:(id)object class:(Class)klass
 {
-    return object && [object isKindOfClass:klass];
+    BOOL validated = (object != nil && [object isKindOfClass:klass]);
+    
+    [TFOptionsKit
+     requireThat:(validated || object == nil)
+     format:@"Object %@ is not of the expected class", object, NSStringFromClass(klass)];
+    
+    return validated;
 }
+
 
 #pragma mark - Options
 
@@ -109,9 +147,13 @@
             namespace:(NSString *)namespace
          defaultValue:(id)defaultValue
 {
-    return [self options:self.options fromNamespace:namespace][key] ? :
-             [self options:self.defaults fromNamespace:namespace][key] ? :
-               defaultValue;
+    id object = [self options:self.options fromNamespace:namespace][key];
+    
+    [TFOptionsKit
+     requireThat:(object != nil || defaultValue != nil)
+     format:@"Key %@%@%@ not found, no default value provided", namespace ? : @"", namespace ? @"/" : @"", key];
+
+    return object ? : defaultValue;
 }
 
 
@@ -119,10 +161,14 @@
                   namespace:(NSString *)namespace
                defaultValue:(NSArray *)defaultValue
 {
-    id object = [self objectForOption:key namespace:namespace defaultValue:defaultValue];
+    id object = [self objectForOption:key
+                            namespace:namespace
+                         defaultValue:defaultValue];
+    
     if ([TFOptionsKit validate:object class:[NSArray class]]) {
         return object;
     }
+    
     return defaultValue;
 }
 
@@ -179,10 +225,10 @@
         
         NSScanner *scanner = [NSScanner scannerWithString:hexColor];
         BOOL successful = [scanner scanHexInt:&rgbHexValue];
+
+        [TFOptionsKit requireThat:(successful || defaultValue != nil) format:@"No valid color found on key path: %@%@%@ and defaultValue is not set", namespace ? : @"", namespace ? @"/" : @"", key];
         
-        if (successful) {
-            return UIColorFromRGBA(rgbHexValue);
-        }
+        return UIColorFromRGBA(rgbHexValue);
     }
     
     return defaultValue;
@@ -201,41 +247,41 @@
 
 
 - (float)floatForOption:(NSString *)key
-                namespace:(NSString *)namespace
-             defaultValue:(float)defaultValue
+              namespace:(NSString *)namespace
+           defaultValue:(NSNumber *)defaultValue
 {
-    return [[self numberForOption:key namespace:namespace defaultValue:@(defaultValue)] floatValue];
+    return [[self numberForOption:key namespace:namespace defaultValue:defaultValue] floatValue];
 }
 
 - (double)doubleForOption:(NSString *)key
                 namespace:(NSString *)namespace
-             defaultValue:(double)defaultValue
+             defaultValue:(NSNumber *)defaultValue
 {
-    return [[self numberForOption:key namespace:namespace defaultValue:@(defaultValue)] doubleValue];
+    return [[self numberForOption:key namespace:namespace defaultValue:defaultValue] doubleValue];
 }
 
 
 - (NSInteger)intForOption:(NSString *)key
                 namespace:(NSString *)namespace
-             defaultValue:(NSInteger)defaultValue
+             defaultValue:(NSNumber *)defaultValue
 {
-    return [[self numberForOption:key namespace:namespace defaultValue:@(defaultValue)] integerValue];
+    return [[self numberForOption:key namespace:namespace defaultValue:defaultValue] integerValue];
 }
 
 
 - (NSUInteger)uintForOption:(NSString *)key
-                namespace:(NSString *)namespace
-             defaultValue:(NSUInteger)defaultValue
+                  namespace:(NSString *)namespace
+               defaultValue:(NSNumber *)defaultValue
 {
-    return [[self numberForOption:key namespace:namespace defaultValue:@(defaultValue)] unsignedIntegerValue];
+    return [[self numberForOption:key namespace:namespace defaultValue:defaultValue] unsignedIntegerValue];
 }
 
 
 - (BOOL)boolForOption:(NSString *)key
             namespace:(NSString *)namespace
-         defaultValue:(BOOL)defaultValue
+         defaultValue:(NSNumber *)defaultValue
 {
-    return [[self numberForOption:key namespace:namespace defaultValue:@(defaultValue)] boolValue];
+    return [[self numberForOption:key namespace:namespace defaultValue:defaultValue] boolValue];
 }
 
 

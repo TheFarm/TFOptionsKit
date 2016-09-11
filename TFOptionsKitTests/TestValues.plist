@@ -41,5 +41,22 @@
 	<string>FF00FF</string>
 	<key>Value to override</key>
 	<false/>
+	<key>Dictionary to override</key>
+	<dict>
+		<key>dict</key>
+		<dict>
+			<key>key</key>
+			<string>value</string>
+		</dict>
+		<key>a value</key>
+		<string>value</string>
+		<key>another dict</key>
+		<dict>
+			<key>value 1</key>
+			<string>first</string>
+			<key>value 2</key>
+			<string>second</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

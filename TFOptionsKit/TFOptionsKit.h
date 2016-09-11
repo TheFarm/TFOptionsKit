@@ -180,7 +180,7 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
  */
 - (float)floatForOption:(nonnull NSString *)key
               namespace:(nullable NSString *)ns
-           defaultValue:(float)defaultValue;
+           defaultValue:(nullable NSNumber *)defaultValue;
 
 /** Gets a double from the specified key
  
@@ -188,7 +188,7 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
  */
 - (double)doubleForOption:(nonnull NSString *)key
                 namespace:(nullable NSString *)ns
-             defaultValue:(double)defaultValue;
+             defaultValue:(nullable NSNumber *)defaultValue;
 
 /** Gets a signed integer from the specified key
  
@@ -196,7 +196,7 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
  */
 - (NSInteger)intForOption:(nonnull NSString *)key
                 namespace:(nullable NSString *)ns
-             defaultValue:(NSInteger)defaultValue;
+             defaultValue:(nullable NSNumber *)defaultValue;
 
 /** Gets a unsigned integer from the specified key
  
@@ -204,7 +204,7 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
  */
 - (NSUInteger)uintForOption:(nonnull NSString *)key
                   namespace:(nullable NSString *)ns
-               defaultValue:(NSUInteger)defaultValue;
+               defaultValue:(nullable NSNumber *)defaultValue;
 
 /** Gets a bool from the specified key
  
@@ -212,7 +212,7 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
  */
 - (BOOL)boolForOption:(nonnull NSString *)key
             namespace:(nullable NSString *)ns
-         defaultValue:(BOOL)defaultValue;
+         defaultValue:(nullable NSNumber *)defaultValue;
 
 #pragma mark - Deprecated methods
 
