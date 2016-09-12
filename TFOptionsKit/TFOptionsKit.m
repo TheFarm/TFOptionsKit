@@ -128,15 +128,23 @@
 }
 
 
-- (NSDictionary *)options:(NSDictionary *)options
-            fromNamespace:(NSString *)namespace
+- (NSDictionary *)optionsFromNamespace:(NSString *)namespace
 {
+    NSDictionary *options = self.options;
+    
     if (namespace.length) {
         NSArray *components = [namespace componentsSeparatedByString:@"/"];
         for (NSString *path in components) {
-            options = options[path];
+            if ([options isKindOfClass:[NSDictionary class]]) {
+                options = options[path];
+            }
+            else {
+                options = nil;
+                break;
+            }
         }
     }
+    
     return options;
 }
 
@@ -159,7 +167,7 @@
             namespace:(NSString *)namespace
          defaultValue:(id)defaultValue
 {
-    id object = [self options:self.options fromNamespace:namespace][key];
+    id object = [self optionsFromNamespace:namespace][key];
     
     [TFOptionsKit
      requireThat:(object != nil || defaultValue != nil)
@@ -224,7 +232,7 @@
                   namespace:(NSString *)namespace
                defaultValue:(UIColor *)defaultValue
 {
-    NSString *hexColor = [self stringForOption:key namespace:namespace defaultValue:nil];
+    NSString *hexColor = [self stringForOption:key namespace:namespace defaultValue:@""];
     
     if (hexColor != nil && ![hexColor isEqualToString:@""]) {
         hexColor = [hexColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
@@ -299,126 +307,11 @@
 }
 
 
-#pragma mark - DEPRECATED
-
-- (id)objectForOption:(NSString *)optionKey
-              default:(id)defaultValue
+- (BOOL)optionExists:(NSString *)key
+           namespace:(NSString *)ns
 {
-    if ([self.options objectForKey:optionKey] != nil) {
-        return [self.options objectForKey:optionKey];
-    } else {
-        return defaultValue;
-    }
-}
-
-
-- (NSArray *)arrayForOption:(NSString *)optionKey
-                    default:(NSArray *)defaultValue
-{
-    id object = [self objectForOption:optionKey default:defaultValue];
-    if (object && [object isKindOfClass:[NSArray class]]) {
-        return object;
-    } else {
-        return defaultValue;
-    }
-}
-
-
-- (NSDictionary *)dictForOption:(NSString *)optionKey
-                        default:(NSDictionary *)defaultValue
-{
-    id object = [self objectForOption:optionKey default:defaultValue];
-    if (object && [object isKindOfClass:[NSDictionary class]]) {
-        return object;
-    } else {
-        return defaultValue;
-    }
-}
-
-
-- (NSString *)stringForOption:(NSString *)optionKey
-                      default:(NSString *)defaultValue
-{
-    id object = [self objectForOption:optionKey default:defaultValue];
-    if (object && [object isKindOfClass:[NSString class]]) {
-        return object;
-    } else {
-        return defaultValue;
-    }
-}
-
-
-- (NSNumber *)numberForOption:(NSString *)optionKey
-                      default:(NSNumber *)defaultValue
-{
-    id object = [self objectForOption:optionKey default:defaultValue];
-    if (object && [object isKindOfClass:[NSNumber class]]) {
-        return object;
-    } else {
-        return defaultValue;
-    }
-}
-
-
-- (UIColor *)colorForOption:(NSString *)optionKey
-                    default:(UIColor *)defaultValue
-{
-    NSString *hexColor = [self stringForOption:optionKey default:nil];
-
-    if (hexColor != nil && ![hexColor isEqualToString:@""]) {
-        hexColor = [hexColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-        
-        if ([hexColor length] == 6) {
-            hexColor = [hexColor stringByAppendingString:@"FF"];
-        }
-        
-        unsigned int rgbHexValue;
-        
-        NSScanner *scanner = [NSScanner scannerWithString:hexColor];
-        BOOL successful = [scanner scanHexInt:&rgbHexValue];
-        
-        if (successful) {
-            defaultValue = UIColorFromRGBA(rgbHexValue);
-        }
-    }
-    return defaultValue;
-}
-
-
-- (NSDate *)dateForOption:(NSString *)optionKey
-                  default:(NSDate *)defaultValue
-{
-    id object = [self objectForOption:optionKey
-                              default:defaultValue];
-    if (object && [object isKindOfClass:[NSDate class]]) {
-        return object;
-    } else {
-        return defaultValue;
-    }
-}
-
-
-- (float)floatForOption:(NSString *)optionKey
-                default:(float)defaultValue
-{
-    return [[self numberForOption:optionKey
-                          default:@(defaultValue)] floatValue];
-}
-
-
-- (NSInteger)intForOption:(NSString *)optionKey
-                  default:(NSInteger)defaultValue
-{
-    return [[self numberForOption:optionKey
-                          default:@(defaultValue)] integerValue];
-}
-
-
-- (BOOL)boolForOption:(NSString *)optionKey
-              default:(BOOL)defaultValue
-{
-    return [[self numberForOption:optionKey
-                          default:@(defaultValue)] boolValue];
+    NSDictionary *options = [self optionsFromNamespace:ns];
+    return options[key] ? YES : NO;
 }
 
 @end

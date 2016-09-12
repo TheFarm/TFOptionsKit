@@ -219,39 +219,15 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
             namespace:(nullable NSString *)ns
          defaultValue:(nullable NSNumber *)defaultValue;
 
-#pragma mark - Deprecated methods
-
-- (nullable id)objectForOption:(nonnull NSString *)optionKey
-                       default:(nullable id)defaultValue DEPRECATED_ATTRIBUTE;
-
-- (nullable NSArray *)arrayForOption:(nonnull NSString *)optionKey
-                             default:(nullable NSArray *)defaultValue DEPRECATED_ATTRIBUTE;
-
-- (nullable NSDictionary *)dictForOption:(nonnull NSString *)optionKey
-                                 default:(nullable NSDictionary *)defaultValue DEPRECATED_ATTRIBUTE;
-
-- (nullable NSString *)stringForOption:(nonnull NSString *)optionKey
-                               default:(nullable NSString *)defaultValue DEPRECATED_ATTRIBUTE;
-
-- (nullable NSNumber *)numberForOption:(nonnull NSString *)optionKey
-                               default:(nullable NSNumber *)defaultValue DEPRECATED_ATTRIBUTE;
-
-- (nullable NSDate *)dateForOption:(nonnull NSString *)optionKey
-                           default:(nullable NSDate *)defaultValue DEPRECATED_ATTRIBUTE;
-
-- (nullable UIColor *)colorForOption:(nonnull NSString *)optionKey
-                             default:(nullable UIColor*)defaultValue DEPRECATED_ATTRIBUTE;
-
-- (float)floatForOption:(nonnull NSString *)optionKey
-                default:(float)defaultValue DEPRECATED_ATTRIBUTE;
-
-- (NSInteger)intForOption:(nonnull NSString *)optionKey
-                  default:(NSInteger)defaultValue DEPRECATED_ATTRIBUTE;
-
-- (BOOL)boolForOption:(nonnull NSString *)optionKey
-              default:(BOOL)defaultValue DEPRECATED_ATTRIBUTE;
+/** Checks the existance of a specific namespace and key **/
+- (BOOL)optionExists:(nonnull NSString *)key
+           namespace:(nullable NSString *)ns;
 
 @end
+
+#ifndef TF_optionExists
+#define TF_optionExists(_namespace, _key) [[TFOptionsKit sharedOptions] optionExists:_key namespace:_namespace]
+#endif
 
 #ifndef TF_option
 #define TF_option(_namespace, _key) [[TFOptionsKit sharedOptions] objectForOption:_key namespace:_namespace defaultValue:nil]
@@ -297,7 +273,6 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
 #define TF_boolOption(_namespace, _key) [[TFOptionsKit sharedOptions] boolForOption:_key namespace:_namespace defaultValue:nil]
 #endif
 
-
 #ifndef TF_optionValue
 #define TF_optionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] objectForOption:_key namespace:_namespace defaultValue:_default]
 #endif
@@ -340,47 +315,4 @@ FOUNDATION_EXPORT const unsigned char TFOptionsKitVersionString[];
 
 #ifndef TF_boolOptionValue
 #define TF_boolOptionValue(_namespace, _key, _default) [[TFOptionsKit sharedOptions] boolForOption:_key namespace:_namespace defaultValue:_default]
-#endif
-
-
-#pragma mark - DEPRECATED
-
-#ifndef option
-#define option(_key, _default) [[TFOptionsKit sharedOptions] objectForOption:_key default:_default]
-#endif
-
-#ifndef arrayOption
-#define arrayOption(_key, _default) [[TFOptionsKit sharedOptions] arrayForOption:_key default:_default]
-#endif
-
-#ifndef dictOption
-#define dictOption(_key, _default) [[TFOptionsKit sharedOptions] dictForOption:_key default:_default]
-#endif
-
-#ifndef stringOption
-#define stringOption(_key, _default) [[TFOptionsKit sharedOptions] stringForOption:_key default:_default]
-#endif
-
-#ifndef numberOption
-#define numberOption(_key, _default) [[TFOptionsKit sharedOptions] numberForOption:_key default:_default]
-#endif
-
-#ifndef dateOption
-#define dateOption(_key, _default) [[TFOptionsKit sharedOptions] dateForOption:_key default:_default]
-#endif
-
-#ifndef colorOption
-#define colorOption(_key, _default) [[TFOptionsKit sharedOptions] colorForOption:_key default:_default]
-#endif
-
-#ifndef floatOption
-#define floatOption(_key, _default) [[TFOptionsKit sharedOptions] floatForOption:_key default:_default]
-#endif
-
-#ifndef intOption
-#define intOption(_key, _default) [[TFOptionsKit sharedOptions] intForOption:_key default:_default]
-#endif
-
-#ifndef boolOption
-#define boolOption(_key, _default) [[TFOptionsKit sharedOptions] boolForOption:_key default:_default]
 #endif
